@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
+    <ui:define name="content">
+    	<h:form>
+        	<h:dataTable value="#{transferBean.deviceList}" var="d"
+    			styleClass="order-table"
+    			headerClass="order-table-header"
+    			rowClasses="order-table-odd-row,order-table-even-row"
+    		>
+
+    			<h:column>
+    				<!-- column header -->
+    				<f:facet name="header">ID</f:facet>
+    				<!-- row record -->
+    				#{d.id}
+    			</h:column>
+    			
+    			<h:column>
+    				<f:facet name="header">Name</f:facet>
+    				#{d.name}
+    			</h:column>
+    			
+    			<h:column>
+    				<f:facet name="header">Description</f:facet>
+    				#{d.description}
+    			</h:column>
+    			
+    			<h:column>
+    				<f:facet name="header">Brand</f:facet>
+    				#{d.brand.brand_name}
+    			</h:column>
+    			
+    			<h:column>
+    				<f:facet name="header">Operating System</f:facet>
+    				#{d.os.name}
+    			</h:column>
+    		
+    		</h:dataTable>
+    		<br/>
+    		<h3>Add device</h3>
+    		<label>Name:</label>
+            <h:inputText value="#{transferBean.deviceName}" style="width: 120px;"></h:inputText>
+	        <br/>
+	        <label>Description:</label>
+	        <h:inputText value="#{transferBean.deviceDescription}" style="width: 120px;"></h:inputText>
+	        <br/>
+	        <label>Brand:</label>
+	        <h:selectOneMenu value="#{transferBean.selectedBrand}">
+        	<f:selectItems value="#{transferBean.brandNames}" var="brand" itemValue="#{brand.brand_name}" itemLabel="#{brand.brand_name}"/>
+        	</h:selectOneMenu>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>
