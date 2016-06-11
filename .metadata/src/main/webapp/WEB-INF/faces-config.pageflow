@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14141592409490" configfile="/network/src/main/webapp/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="welcomeBank.xhtml" x="122" y="178" id="pf14654230109110" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14654230109111" path="/welcomeBank.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="transferForm.xhtml" x="338" y="178" id="pf14654230109112" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf14654230109113" inlinks="pf14654230109111" path="/transferForm.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="showTransferResult.xhtml" x="554" y="178" id="pf14654230109114" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf14654230109113" path="/showTransferResult.xhtml"/>
-  <links id="pf14654230109111" target="pf14654230109112" source="pf14654230109110" outcome="transferForm"/>
-  <links id="pf14654230109113" target="pf14654230109114" source="pf14654230109112" outcome="#{transferBean.performTransfer}"/>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14141592409490" configfile="/networkManagement/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="welcomeNetwork.xhtml" x="122" y="178" id="pf14654230109110" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14654230109111" path="/welcomeNetwork.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="transferForm.xhtml" x="338" y="178" id="pf14654230109112" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf14654230109111" path="/deviceForm.xhtml"/>
+  <links id="pf14654230109111" target="pf14654230109112" source="pf14654230109110" outcome="deviceForm"/>
 </pageflow:Pageflow>

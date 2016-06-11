@@ -18,7 +18,7 @@ import ch.hevs.networkservice.NetworkInterface;
  * TransferBean.java
  * 
  */
-public class TransferBean
+public class DeviceBean
 {
     private List<Device> deviceList;
     private List<User> userList;
@@ -32,6 +32,7 @@ public class TransferBean
     private long[] selectedUsers;
     private String operation;
     private int operation_state;
+    private long mod_device_id;
 
 	private long selectedOS;
     private List<Brand> brandNames;
@@ -45,6 +46,7 @@ public class TransferBean
     	// set operation
     	this.setOperation("Add device");
     	operation_state = 0;
+		this.mod_device_id = -1;
     	
     	// get devices
     	deviceList = networking.getDevices();
@@ -88,8 +90,10 @@ public class TransferBean
 		brandNames.add(google);
     }
 	
+	// reset form
 	public void abord() {
 		this.operation_state = 0;
+		this.mod_device_id = -1;
 		this.setOperation("Add device");
 		this.setSelectedBrand("Lenovo");
 		this.setSelectedNetworks(new long[0]);
@@ -99,34 +103,75 @@ public class TransferBean
 		this.setDeviceDescription("");
 	}
 	
+	// get device and update form (for edit)
+	public void modifyDevice(long id) {
+		this.mod_device_id = id;
+		Device mod_device = networking.getDeviceById(id);
+		this.operation_state = 1;
+		this.setOperation("Modify device");
+		this.setSelectedBrand(mod_device.getBrand().getBrand_name());
+		List<Network> nList = mod_device.getNetworks();
+		long[] selNetworks = new long[nList.size()];
+		int i = 0;
+		for (Network n : nList) {
+			selNetworks[i] = n.getId();
+			i++;
+		}
+		this.setSelectedNetworks(selNetworks);
+
+		List<User> uList = mod_device.getOwners();
+		long[] selUsers = new long[uList.size()];
+		i = 0;
+		for (User u : uList) {
+			selUsers[i] = u.getId();
+			i++;
+		}
+		this.setSelectedUsers(selUsers);
+		this.setSelectedOS(mod_device.getOs().getId());
+		this.setDeviceName(mod_device.getName());
+		this.setDeviceDescription(mod_device.getDescription());
+	}
+	
 	public void handleDevice() {
-		// operation-state is 0, so we add
+		List<Network> networks = new ArrayList<Network>();
+		List<User> owners = new ArrayList<User>();
+		
+		int found = 0;
+		int c = 0;
+		for (Brand b : brandNames) {
+			if (b.getBrand_name().equals(this.getSelectedBrand())) {
+				found = c;
+			}
+			c++;
+		}
+		Brand brand = this.brandNames.get(found);
+		
+		for (int i = 0; i < selectedNetworks.length; i++) {
+			networks.add(networking.getNetworkById(selectedNetworks[i]));
+		}
+		for (int i = 0; i < selectedUsers.length; i++) {
+			owners.add(networking.getUserById(selectedUsers[i]));
+		}
+		
+		OperatingSystem os = networking.getOperatingSystemById((long)this.getSelectedOS());
+
 		if (operation_state == 0) {
-			Device new_device = new Device();
-			new_device.setName(this.getDeviceName());
-			new_device.setDescription(this.getDeviceDescription());
-			int found = 0;
-			int c = 0;
-			for (Brand b : brandNames) {
-				if (b.getBrand_name().equals(this.getSelectedBrand())) {
-					found = c;
-				}
-				c++;
-			}
-			new_device.setBrand(this.brandNames.get(found));
-			for (int i = 0; i < selectedNetworks.length; i++) {
-				new_device.addNetwork(networking.getNetworkById(selectedNetworks[i]));
-			}
-			for (int i = 0; i < selectedUsers.length; i++) {
-				new_device.addOwner(networking.getUserById(selectedUsers[i]));
-			}
-			new_device.setOs(networking.getOperatingSystemById((long)this.getSelectedOS()));
-			networking.addDevice(new_device);
+			networking.addDevice(this.getDeviceName(),
+									this.getDeviceDescription(),
+									brand, networks, owners, os);
 		}
-		// operation-state is 1, so we edit
 		if (operation_state == 1) {
-			
+			networking.modifyDevice(mod_device_id,
+									this.getDeviceName(),
+									this.getDeviceDescription(),
+									brand, networks, owners, os);
 		}
+		// reset form
+		this.abord();
+	}
+	
+	public void deleteDevice(long id) {
+		networking.deleteDeviceById(id);
 	}
 
 	// getters and setters

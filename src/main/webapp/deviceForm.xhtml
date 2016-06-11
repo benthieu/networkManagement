@@ -8,7 +8,7 @@
 <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
     <ui:define name="content">
     	<h:form>
-        	<h:dataTable value="#{transferBean.deviceList}" var="d"
+        	<h:dataTable value="#{deviceBean.deviceList}" var="d"
     			styleClass="order-table"
     			headerClass="order-table-header"
     			rowClasses="order-table-odd-row,order-table-even-row"
@@ -47,37 +47,51 @@
     					#{owner.firstname} #{owner.lastname}<br/>
     				</ui:repeat>
     			</h:column>
+    			<h:column>
+    				<f:facet name="header">Mod</f:facet>
+    				<h:commandLink
+					    action="#{deviceBean.modifyDevice(d.id)}">
+					    Modify
+					</h:commandLink>
+    			</h:column>
+    			<h:column>
+    				<f:facet name="header">Del</f:facet>
+    				<h:commandLink
+					    action="#{deviceBean.deleteDevice(d.id)}">
+					    Delete
+					</h:commandLink>
+    			</h:column>
     		</h:dataTable>
     		<br/>
-    		<h3><h:outputText value="#{transferBean.operation}"></h:outputText></h3>
+    		<h3><h:outputText value="#{deviceBean.operation}"></h:outputText></h3>
     		<label>Name:</label>
-            <h:inputText value="#{transferBean.deviceName}" style="width: 120px;"></h:inputText>
+            <h:inputText value="#{deviceBean.deviceName}" style="width: 120px;"></h:inputText>
 	        <br/>
 	        <label>Description:</label>
-	        <h:inputText value="#{transferBean.deviceDescription}" style="width: 120px;"></h:inputText>
+	        <h:inputText value="#{deviceBean.deviceDescription}" style="width: 120px;"></h:inputText>
 	        <br/>
 	        <label>Brand:</label>
-	        <h:selectOneMenu value="#{transferBean.selectedBrand}">
-        	<f:selectItems value="#{transferBean.brandNames}" var="brand" itemValue="#{brand.brand_name}" itemLabel="#{brand.brand_name}"/>
+	        <h:selectOneMenu value="#{deviceBean.selectedBrand}">
+        	<f:selectItems value="#{deviceBean.brandNames}" var="brand" itemValue="#{brand.brand_name}" itemLabel="#{brand.brand_name}"/>
         	</h:selectOneMenu>
 	        <br/>
 	        <label>Network:</label>
-	        <h:selectManyListbox value="#{transferBean.selectedNetworks}" rows="4">
-        	<f:selectItems value="#{transferBean.networkList}" var="network" itemValue="#{network.id}" itemLabel="#{network.name}"/>
+	        <h:selectManyListbox value="#{deviceBean.selectedNetworks}" rows="4">
+        	<f:selectItems value="#{deviceBean.networkList}" var="network" itemValue="#{network.id}" itemLabel="#{network.name}"/>
         	</h:selectManyListbox>
 	        <br/>
 	        <label>User:</label> 
-	        <h:selectManyListbox value="#{transferBean.selectedUsers}" rows="4">
-        	<f:selectItems value="#{transferBean.userList}" var="user" itemValue="#{user.id}" itemLabel="#{user.firstname} #{user.lastname}"/>
+	        <h:selectManyListbox value="#{deviceBean.selectedUsers}" rows="4">
+        	<f:selectItems value="#{deviceBean.userList}" var="user" itemValue="#{user.id}" itemLabel="#{user.firstname} #{user.lastname}"/>
         	</h:selectManyListbox>
 	        <br/>
 	        <label>OperatingSystem:</label>
-	        <h:selectOneMenu value="#{transferBean.selectedOS}">
-        	<f:selectItems value="#{transferBean.osList}" var="os" itemValue="#{os.id}" itemLabel="#{os.name}"/>
+	        <h:selectOneMenu value="#{deviceBean.selectedOS}">
+        	<f:selectItems value="#{deviceBean.osList}" var="os" itemValue="#{os.id}" itemLabel="#{os.name}"/>
         	</h:selectOneMenu>
         	<br/>
-     		<h:commandButton value="Save" action="#{transferBean.handleDevice}"></h:commandButton>
-     		<h:commandButton value="Abord" action="#{transferBean.abord}"></h:commandButton>
+     		<h:commandButton value="Save" action="#{deviceBean.handleDevice}"></h:commandButton>
+     		<h:commandButton value="Abord" action="#{deviceBean.abord}"></h:commandButton>
         </h:form>
     </ui:define>
 </ui:composition>

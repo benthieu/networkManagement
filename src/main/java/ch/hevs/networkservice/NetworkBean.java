@@ -1,5 +1,6 @@
 package ch.hevs.networkservice;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -11,6 +12,7 @@ import javax.persistence.PersistenceContextType;
 
 import org.jboss.security.auth.spi.Users;
 
+import ch.hevs.businessobject.Brand;
 import ch.hevs.businessobject.Device;
 import ch.hevs.businessobject.Network;
 import ch.hevs.businessobject.OperatingSystem;
@@ -64,8 +66,49 @@ public class NetworkBean implements NetworkInterface {
 		return em.getReference(Device.class, id);
 	}
 	
-	public void addDevice(Device new_device) {
+	public void addDevice(String name, String description, Brand brand, List<Network> networks, List<User> owners, OperatingSystem os) {
+		Device new_device = new Device();
+		new_device.setName(name);
+		new_device.setDescription(description);
+		new_device.setBrand(brand);
+		new_device.setNetworks(networks);
+		new_device.setOwners(owners);
+		new_device.setOs(os);
 		devices.add(new_device);
 		em.persist(new_device);
+	}
+	public void modifyDevice(long id, String name, String description, Brand brand, List<Network> networks, List<User> owners, OperatingSystem os) {
+		Device mod_device = em.getReference(Device.class, id);
+		mod_device.setName(name);
+		mod_device.setDescription(description);
+		mod_device.setBrand(brand);
+		mod_device.setNetworks(networks);
+		mod_device.setOwners(owners);
+		mod_device.setOs(os);
+		em.persist(mod_device);
+	}
+	public void deleteDeviceById(long id) {
+		Device to_delete = em.getReference(Device.class, id);
+		devices.remove(to_delete);
+		em.remove(to_delete);
+	}
+
+	public void addNetwork(String name, String description) {
+		Network new_network = new Network();
+		new_network.setName(name);
+		new_network.setDescription(description);
+		networks.add(new_network);
+		em.persist(new_network);
+	}
+	public void modifyNetwork(long id, String name, String description) {
+		Network mod_network = em.getReference(Network.class, id);
+		mod_network.setName(name);
+		mod_network.setDescription(description);
+		em.persist(mod_network);
+	}
+	public void deleteNetwork(long id) {
+		Network to_delete = em.getReference(Network.class, id);
+		networks.remove(to_delete);
+		em.remove(to_delete);
 	}
 }

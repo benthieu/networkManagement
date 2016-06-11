@@ -3,6 +3,7 @@ package ch.hevs.businessobject;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -83,6 +84,9 @@ public class Device {
 
 	public void setOwners(List<User> owners) {
 		this.owners = owners;
+		for (User u : owners) {
+			u.addDevice(this);
+		}
 	}
 
 	public OperatingSystem getOs() {
@@ -99,6 +103,9 @@ public class Device {
 
 	public void setNetworks(List<Network> networks) {
 		this.networks = networks;
+		for (Network n : networks) {
+			n.addDevice(this);
+		}
 	}
 
 	public Brand getBrand() {
