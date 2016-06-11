@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 
+import org.jboss.security.auth.spi.Users;
+
 import ch.hevs.businessobject.Device;
 import ch.hevs.businessobject.Network;
 import ch.hevs.businessobject.OperatingSystem;
@@ -21,19 +23,49 @@ public class NetworkBean implements NetworkInterface {
 	@PersistenceContext(name = "BankPU", type = PersistenceContextType.EXTENDED)
 	private EntityManager em;
 
+	private List<Network> networks;
+	private List<User> users;
+	private List<OperatingSystem> operatingSystems;
+	private List<Device> devices;
+
 	public List<Network> getNetworks() {
-		return em.createQuery("FROM Network").getResultList();
+		networks = em.createQuery("FROM Network").getResultList();
+		return networks;
 	}
 
 	public List<Device> getDevices() {
-		return em.createQuery("FROM Device").getResultList();
+		devices = em.createQuery("FROM Device").getResultList();
+		return devices;
 	}
 
 	public List<OperatingSystem> getOperatingSystems() {
-		return em.createQuery("FROM OperatingSystem").getResultList();
+		operatingSystems = em.createQuery("FROM OperatingSystem").getResultList();
+		return operatingSystems;
 	}
 
 	public List<User> getUsers() {
-		return em.createQuery("FROM User").getResultList();
+		users = em.createQuery("FROM User").getResultList();
+		return users;
+	}
+	
+	public Network getNetworkById(long id) {
+		return em.getReference(Network.class, id);
+	}
+	
+	public User getUserById(long id) {
+		return em.getReference(User.class, id);
+	}
+	
+	public OperatingSystem getOperatingSystemById(long id) {
+		return em.getReference(OperatingSystem.class, id);
+	}
+	
+	public Device getDeviceById(long id) {
+		return em.getReference(Device.class, id);
+	}
+	
+	public void addDevice(Device new_device) {
+		devices.add(new_device);
+		em.persist(new_device);
 	}
 }

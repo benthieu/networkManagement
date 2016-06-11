@@ -19,27 +19,22 @@
     				<!-- row record -->
     				#{d.id}
     			</h:column>
-    			
     			<h:column>
     				<f:facet name="header">Name</f:facet>
     				#{d.name}
     			</h:column>
-    			
     			<h:column>
     				<f:facet name="header">Description</f:facet>
     				#{d.description}
     			</h:column>
-    			
     			<h:column>
     				<f:facet name="header">Brand</f:facet>
     				#{d.brand.brand_name}
     			</h:column>
-    			
     			<h:column>
     				<f:facet name="header">Operating System</f:facet>
     				#{d.os.name}
     			</h:column>
-    		
     		</h:dataTable>
     		<br/>
     		<h3>Add device</h3>
@@ -53,18 +48,22 @@
 	        <h:selectOneMenu value="#{transferBean.selectedBrand}">
         	<f:selectItems value="#{transferBean.brandNames}" var="brand" itemValue="#{brand.brand_name}" itemLabel="#{brand.brand_name}"/>
         	</h:selectOneMenu>
+	        <br/>
 	        <label>Network:</label>
 	        <h:selectOneMenu value="#{transferBean.selectedNetwork}">
         	<f:selectItems value="#{transferBean.networkList}" var="network" itemValue="#{network.id}" itemLabel="#{network.name}"/>
         	</h:selectOneMenu>
+	        <br/>
 	        <label>User:</label> 
 	        <h:selectOneMenu value="#{transferBean.selectedUser}">
         	<f:selectItems value="#{transferBean.userList}" var="user" itemValue="#{user.id}" itemLabel="#{user.firstname} #{user.lastname}"/>
         	</h:selectOneMenu>
+	        <br/>
 	        <label>OperatingSystem:</label>
 	        <h:selectOneMenu value="#{transferBean.selectedOS}">
         	<f:selectItems value="#{transferBean.osList}" var="os" itemValue="#{os.id}" itemLabel="#{os.name}"/>
         	</h:selectOneMenu>
+     		<h:commandButton value="transfer" action="#{transferBean.addDevice}"></h:commandButton>
         </h:form>
     </ui:define>
 </ui:composition>

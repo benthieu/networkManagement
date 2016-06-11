@@ -21,4 +21,14 @@ public interface NetworkInterface {
 	public List<OperatingSystem> getOperatingSystems();
 
 	public List<User> getUsers();
+	
+	public Network getNetworkById(long id);
+	
+	public User getUserById(long id);
+	
+	public OperatingSystem getOperatingSystemById(long id);
+	
+	public Device getDeviceById(long id);
+	
+	public void addDevice(Device new_device);
 }

@@ -28,9 +28,9 @@ public class TransferBean
     private String deviceName;
     private String deviceDescription;
     private String selectedBrand;
-    private int selectedNetwork;
-    private int selectedUser;
-    private int selectedOS;
+    private long selectedNetwork;
+    private long selectedUser;
+    private long selectedOS;
     private List<Brand> brandNames;
 
 	@PostConstruct
@@ -53,7 +53,7 @@ public class TransferBean
     	Brand lenovo = new Brand();
 		lenovo.setBrand_description("electronics manufacturing company");
 		lenovo.setBrand_name("Lenovo");
-		lenovo.setBrand_headquarters("Chicago");
+		lenovo.setBrand_headquarters("Chicago"); 
 		brandNames.add(lenovo);
 		
 		Brand apple = new Brand();
@@ -80,6 +80,25 @@ public class TransferBean
 		google.setBrand_headquarters("Mountain View, California");
 		brandNames.add(google);
     }
+	
+	public void addDevice() {
+		Device new_device = new Device();
+		new_device.setName(this.getDeviceName());
+		new_device.setDescription(this.getDeviceDescription());
+		int found = 0;
+		int c = 0;
+		for (Brand b : brandNames) {
+			if (b.getBrand_name().equals(this.getSelectedBrand())) {
+				found = c;
+			}
+			c++;
+		}
+		new_device.setBrand(this.brandNames.get(found));
+		new_device.addNetwork(networking.getNetworkById((long)this.getSelectedNetwork()));
+		new_device.addOwner(networking.getUserById((long)this.getSelectedUser()));
+		new_device.setOs(networking.getOperatingSystemById((long)this.getSelectedOS()));
+		networking.addDevice(new_device);
+	}
 
 	// getters and setters
     public List<Device> getDeviceList() {
@@ -133,27 +152,27 @@ public class TransferBean
 		this.osList = osList;
 	}
 
-	public int getSelectedNetwork() {
+	public long getSelectedNetwork() {
 		return selectedNetwork;
 	}
 
-	public void setSelectedNetwork(int selectedNetwork) {
+	public void setSelectedNetwork(long selectedNetwork) {
 		this.selectedNetwork = selectedNetwork;
 	}
 
-	public int getSelectedUser() {
+	public long getSelectedUser() {
 		return selectedUser;
 	}
 
-	public void setSelectedUser(int selectedUser) {
+	public void setSelectedUser(long selectedUser) {
 		this.selectedUser = selectedUser;
 	}
 
-	public int getSelectedOS() {
+	public long getSelectedOS() {
 		return selectedOS;
 	}
 
-	public void setSelectedOS(int selectedOS) {
+	public void setSelectedOS(long selectedOS) {
 		this.selectedOS = selectedOS;
 	}
 
