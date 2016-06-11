@@ -35,9 +35,21 @@
     				<f:facet name="header">Operating System</f:facet>
     				#{d.os.name}
     			</h:column>
+    			<h:column>
+    				<f:facet name="header">Networks</f:facet>
+    				<ui:repeat var="network" value="#{d.networks}">
+    					#{network.name}<br/>
+    				</ui:repeat>
+    			</h:column>
+    			<h:column>
+    				<f:facet name="header">Users</f:facet>
+    				<ui:repeat var="owner" value="#{d.owners}">
+    					#{owner.firstname} #{owner.lastname}<br/>
+    				</ui:repeat>
+    			</h:column>
     		</h:dataTable>
     		<br/>
-    		<h3>Add device</h3>
+    		<h3><h:outputText value="#{transferBean.operation}"></h:outputText></h3>
     		<label>Name:</label>
             <h:inputText value="#{transferBean.deviceName}" style="width: 120px;"></h:inputText>
 	        <br/>
@@ -50,20 +62,22 @@
         	</h:selectOneMenu>
 	        <br/>
 	        <label>Network:</label>
-	        <h:selectOneMenu value="#{transferBean.selectedNetwork}">
+	        <h:selectManyListbox value="#{transferBean.selectedNetworks}" rows="4">
         	<f:selectItems value="#{transferBean.networkList}" var="network" itemValue="#{network.id}" itemLabel="#{network.name}"/>
-        	</h:selectOneMenu>
+        	</h:selectManyListbox>
 	        <br/>
 	        <label>User:</label> 
-	        <h:selectOneMenu value="#{transferBean.selectedUser}">
+	        <h:selectManyListbox value="#{transferBean.selectedUsers}" rows="4">
         	<f:selectItems value="#{transferBean.userList}" var="user" itemValue="#{user.id}" itemLabel="#{user.firstname} #{user.lastname}"/>
-        	</h:selectOneMenu>
+        	</h:selectManyListbox>
 	        <br/>
 	        <label>OperatingSystem:</label>
 	        <h:selectOneMenu value="#{transferBean.selectedOS}">
         	<f:selectItems value="#{transferBean.osList}" var="os" itemValue="#{os.id}" itemLabel="#{os.name}"/>
         	</h:selectOneMenu>
-     		<h:commandButton value="transfer" action="#{transferBean.addDevice}"></h:commandButton>
+        	<br/>
+     		<h:commandButton value="Save" action="#{transferBean.handleDevice}"></h:commandButton>
+     		<h:commandButton value="Abord" action="#{transferBean.abord}"></h:commandButton>
         </h:form>
     </ui:define>
 </ui:composition>

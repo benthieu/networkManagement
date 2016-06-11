@@ -28,9 +28,12 @@ public class TransferBean
     private String deviceName;
     private String deviceDescription;
     private String selectedBrand;
-    private long selectedNetwork;
-    private long selectedUser;
-    private long selectedOS;
+    private long[] selectedNetworks;
+    private long[] selectedUsers;
+    private String operation;
+    private int operation_state;
+
+	private long selectedOS;
     private List<Brand> brandNames;
 
 	@PostConstruct
@@ -38,7 +41,11 @@ public class TransferBean
     	// use JNDI to inject reference to bank EJB
     	InitialContext ctx = new InitialContext();
     	networking = (NetworkInterface) ctx.lookup("java:global/network-0.0.1-SNAPSHOT/NetworkBean!ch.hevs.networkservice.NetworkInterface");  
-			
+		
+    	// set operation
+    	this.setOperation("Add device");
+    	operation_state = 0;
+    	
     	// get devices
     	deviceList = networking.getDevices();
     	// get networks
@@ -81,23 +88,45 @@ public class TransferBean
 		brandNames.add(google);
     }
 	
-	public void addDevice() {
-		Device new_device = new Device();
-		new_device.setName(this.getDeviceName());
-		new_device.setDescription(this.getDeviceDescription());
-		int found = 0;
-		int c = 0;
-		for (Brand b : brandNames) {
-			if (b.getBrand_name().equals(this.getSelectedBrand())) {
-				found = c;
+	public void abord() {
+		this.operation_state = 0;
+		this.setOperation("Add device");
+		this.setSelectedBrand("Lenovo");
+		this.setSelectedNetworks(new long[0]);
+		this.setSelectedUsers(new long[0]);
+		this.setSelectedOS(0);
+		this.setDeviceName("");
+		this.setDeviceDescription("");
+	}
+	
+	public void handleDevice() {
+		// operation-state is 0, so we add
+		if (operation_state == 0) {
+			Device new_device = new Device();
+			new_device.setName(this.getDeviceName());
+			new_device.setDescription(this.getDeviceDescription());
+			int found = 0;
+			int c = 0;
+			for (Brand b : brandNames) {
+				if (b.getBrand_name().equals(this.getSelectedBrand())) {
+					found = c;
+				}
+				c++;
 			}
-			c++;
+			new_device.setBrand(this.brandNames.get(found));
+			for (int i = 0; i < selectedNetworks.length; i++) {
+				new_device.addNetwork(networking.getNetworkById(selectedNetworks[i]));
+			}
+			for (int i = 0; i < selectedUsers.length; i++) {
+				new_device.addOwner(networking.getUserById(selectedUsers[i]));
+			}
+			new_device.setOs(networking.getOperatingSystemById((long)this.getSelectedOS()));
+			networking.addDevice(new_device);
 		}
-		new_device.setBrand(this.brandNames.get(found));
-		new_device.addNetwork(networking.getNetworkById((long)this.getSelectedNetwork()));
-		new_device.addOwner(networking.getUserById((long)this.getSelectedUser()));
-		new_device.setOs(networking.getOperatingSystemById((long)this.getSelectedOS()));
-		networking.addDevice(new_device);
+		// operation-state is 1, so we edit
+		if (operation_state == 1) {
+			
+		}
 	}
 
 	// getters and setters
@@ -152,22 +181,6 @@ public class TransferBean
 		this.osList = osList;
 	}
 
-	public long getSelectedNetwork() {
-		return selectedNetwork;
-	}
-
-	public void setSelectedNetwork(long selectedNetwork) {
-		this.selectedNetwork = selectedNetwork;
-	}
-
-	public long getSelectedUser() {
-		return selectedUser;
-	}
-
-	public void setSelectedUser(long selectedUser) {
-		this.selectedUser = selectedUser;
-	}
-
 	public long getSelectedOS() {
 		return selectedOS;
 	}
@@ -186,6 +199,29 @@ public class TransferBean
 
 	public void setDeviceList(List<Device> deviceList) {
 		this.deviceList = deviceList;
+	}
+    public long[] getSelectedNetworks() {
+		return selectedNetworks;
+	}
+
+	public void setSelectedNetworks(long[] selectedNetworks) {
+		this.selectedNetworks = selectedNetworks;
+	}
+
+	public long[] getSelectedUsers() {
+		return selectedUsers;
+	}
+
+	public void setSelectedUsers(long[] selectedUsers) {
+		this.selectedUsers = selectedUsers;
+	}
+
+	public String getOperation() {
+		return operation;
+	}
+
+	public void setOperation(String operation) {
+		this.operation = operation;
 	}
 	
 }
