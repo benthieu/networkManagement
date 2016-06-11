@@ -3,6 +3,7 @@ package ch.hevs.managedbeans;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedProperty;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -22,6 +23,9 @@ public class NetworkBean
     private String operation;
     private int operation_state;
     private long mod_network_id;
+    
+    @ManagedProperty(value="#{deviceBean}")
+    private DeviceBean deviceBean;
 
 
 	@PostConstruct
@@ -37,8 +41,6 @@ public class NetworkBean
     	
     	// get networks
     	networkList = networking.getNetworks();
-    	
-    	
     }
 	
 	// reset form
@@ -67,6 +69,7 @@ public class NetworkBean
 		if (operation_state == 1) {
 			networking.modifyNetwork(mod_network_id, this.getNetworkName(), this.getNetworkDescription());
 		}
+		deviceBean.setNetworkList(networkList);
 		// reset form
 		this.abord();
 	}
@@ -125,6 +128,14 @@ public class NetworkBean
 
 	public void setMod_network_id(long mod_network_id) {
 		this.mod_network_id = mod_network_id;
+	}
+	
+	public DeviceBean getDeviceBean() {
+		return deviceBean;
+	}
+
+	public void setDeviceBean(DeviceBean deviceBean) {
+		this.deviceBean = deviceBean;
 	}
 
 	
