@@ -11,6 +11,8 @@ import javax.persistence.PersistenceContextType;
 
 import ch.hevs.businessobject.Device;
 import ch.hevs.businessobject.Network;
+import ch.hevs.businessobject.OperatingSystem;
+import ch.hevs.businessobject.User;
 
 @Stateful
 public class NetworkBean implements NetworkInterface {
@@ -25,5 +27,13 @@ public class NetworkBean implements NetworkInterface {
 
 	public List<Device> getDevices() {
 		return em.createQuery("FROM Device").getResultList();
+	}
+
+	public List<OperatingSystem> getOperatingSystems() {
+		return em.createQuery("FROM OperatingSystem").getResultList();
+	}
+
+	public List<User> getUsers() {
+		return em.createQuery("FROM User").getResultList();
 	}
 }

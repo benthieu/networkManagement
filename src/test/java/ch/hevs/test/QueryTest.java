@@ -3,25 +3,16 @@ package ch.hevs.test;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
-
-import org.eclipse.persistence.annotations.Properties;
 import org.junit.Test;
 
-import ch.hevs.businessobject.Account;
 import ch.hevs.businessobject.Brand;
-import ch.hevs.businessobject.Client;
 import ch.hevs.businessobject.Device;
 import ch.hevs.businessobject.Network;
 import ch.hevs.businessobject.OperatingSystem;

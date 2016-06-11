@@ -1,7 +1,4 @@
 
-    alter table Compte 
-        drop constraint FK_3p8c30b13asw1g7t59slflwse
-
     alter table Device 
         drop constraint FK_lvhyp1m4w4c2kfe4m0978rcli
 
@@ -17,10 +14,6 @@
     alter table Device_User 
         drop constraint FK_4ql00flu3v1jen2mn9bwlavv1
 
-    drop table Client if exists
-
-    drop table Compte if exists
-
     drop table Device if exists
 
     drop table Device_Network if exists
@@ -34,22 +27,6 @@
     drop table User if exists
 
     drop sequence hibernate_sequence
-
-    create table Client (
-        id bigint not null,
-        prenom varchar(255),
-        nom varchar(255),
-        primary key (id)
-    )
-
-    create table Compte (
-        id bigint not null,
-        description varchar(255),
-        numero varchar(255),
-        solde bigint,
-        FK_CLIENT bigint,
-        primary key (id)
-    )
 
     create table Device (
         id bigint not null,
@@ -95,11 +72,6 @@
         lastname varchar(255),
         primary key (id)
     )
-
-    alter table Compte 
-        add constraint FK_3p8c30b13asw1g7t59slflwse 
-        foreign key (FK_CLIENT) 
-        references Client
 
     alter table Device 
         add constraint FK_lvhyp1m4w4c2kfe4m0978rcli 

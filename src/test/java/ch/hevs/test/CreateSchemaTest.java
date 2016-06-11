@@ -11,9 +11,6 @@ public class CreateSchemaTest extends TestCase {
 	public void test() {
 
 		Configuration cfg = new Configuration();
-		cfg.addAnnotatedClass(ch.hevs.businessobject.Client.class);
-		cfg.addAnnotatedClass(ch.hevs.businessobject.Account.class);
-		cfg.addAnnotatedClass(ch.hevs.businessobject.Client.class);
 		cfg.addAnnotatedClass(ch.hevs.businessobject.Network.class);
 		cfg.addAnnotatedClass(ch.hevs.businessobject.Device.class);
 		cfg.addAnnotatedClass(ch.hevs.businessobject.OperatingSystem.class);

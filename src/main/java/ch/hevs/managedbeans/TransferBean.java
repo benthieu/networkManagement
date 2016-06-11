@@ -9,6 +9,9 @@ import javax.naming.NamingException;
 
 import ch.hevs.businessobject.Brand;
 import ch.hevs.businessobject.Device;
+import ch.hevs.businessobject.Network;
+import ch.hevs.businessobject.OperatingSystem;
+import ch.hevs.businessobject.User;
 import ch.hevs.networkservice.NetworkInterface;
 
 /**
@@ -18,10 +21,16 @@ import ch.hevs.networkservice.NetworkInterface;
 public class TransferBean
 {
     private List<Device> deviceList;
+    private List<User> userList;
+    private List<OperatingSystem> osList;
+    private List<Network> networkList;
     private NetworkInterface networking;
     private String deviceName;
     private String deviceDescription;
     private String selectedBrand;
+    private int selectedNetwork;
+    private int selectedUser;
+    private int selectedOS;
     private List<Brand> brandNames;
 
 	@PostConstruct
@@ -30,8 +39,16 @@ public class TransferBean
     	InitialContext ctx = new InitialContext();
     	networking = (NetworkInterface) ctx.lookup("java:global/network-0.0.1-SNAPSHOT/NetworkBean!ch.hevs.networkservice.NetworkInterface");  
 			
-    	// get clients
+    	// get devices
     	deviceList = networking.getDevices();
+    	// get networks
+    	networkList = networking.getNetworks();
+    	// get users
+    	userList = networking.getUsers();
+    	// get os
+    	osList = networking.getOperatingSystems();
+    	
+    	
     	brandNames = new ArrayList<Brand>();
     	Brand lenovo = new Brand();
 		lenovo.setBrand_description("electronics manufacturing company");
@@ -99,4 +116,57 @@ public class TransferBean
 	public void setBrandNames(List<Brand> brandNames) {
 		this.brandNames = brandNames;
 	}
+
+	public List<User> getUserList() {
+		return userList;
+	}
+
+	public void setUserList(List<User> userList) {
+		this.userList = userList;
+	}
+
+	public List<OperatingSystem> getOsList() {
+		return osList;
+	}
+
+	public void setOsList(List<OperatingSystem> osList) {
+		this.osList = osList;
+	}
+
+	public int getSelectedNetwork() {
+		return selectedNetwork;
+	}
+
+	public void setSelectedNetwork(int selectedNetwork) {
+		this.selectedNetwork = selectedNetwork;
+	}
+
+	public int getSelectedUser() {
+		return selectedUser;
+	}
+
+	public void setSelectedUser(int selectedUser) {
+		this.selectedUser = selectedUser;
+	}
+
+	public int getSelectedOS() {
+		return selectedOS;
+	}
+
+	public void setSelectedOS(int selectedOS) {
+		this.selectedOS = selectedOS;
+	}
+
+	public List<Network> getNetworkList() {
+		return networkList;
+	}
+
+	public void setNetworkList(List<Network> networkList) {
+		this.networkList = networkList;
+	}
+
+	public void setDeviceList(List<Device> deviceList) {
+		this.deviceList = deviceList;
+	}
+	
 }
