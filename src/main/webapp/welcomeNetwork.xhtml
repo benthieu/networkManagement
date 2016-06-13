@@ -11,12 +11,20 @@
         <h:outputLabel value="Welcome to HEVS Network Management"></h:outputLabel>
         <br></br>
         <h:form>
-        <h:commandLink action="deviceForm">
-         <h:outputText value="Modify network devices" />
+        <h:commandLink action="networkForm">
+         <h:outputText value="Manage networks" />
         </h:commandLink>
         <br/>
-        <h:commandLink action="networkForm">
-         <h:outputText value="Modify networks" />
+        <h:commandLink action="deviceForm">
+         <h:outputText value="Manage devices" />
+        </h:commandLink>
+        <br/>
+         <h:commandLink action="userForm">
+         <h:outputText value="Manage users" />
+        </h:commandLink>
+         <br/>
+         <h:commandLink action="osForm">
+         <h:outputText value="Manage operating systems" />
         </h:commandLink>
         </h:form>
     </ui:define>

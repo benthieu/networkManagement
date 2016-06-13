@@ -111,4 +111,25 @@ public class NetworkBean implements NetworkInterface {
 		networks.remove(to_delete);
 		em.remove(to_delete);
 	}
+	public void addUser(String firstname, String lastname, String email) {
+		User new_user = new User();
+		new_user.setFirstname(firstname);
+		new_user.setLastname(lastname);
+		new_user.setEmail(email);
+		users.add(new_user);
+		em.persist(new_user);
+	}
+	public void modifyUser(long id, String firstname, String lastname, String email) {
+		User mod_user = em.getReference(User.class, id);
+		mod_user.setFirstname(firstname);
+		mod_user.setLastname(lastname);
+		mod_user.setEmail(email);
+		em.persist(mod_user);
+	}
+	
+	public void deleteUser(long id) {
+		User to_delete = em.getReference(User.class, id);
+		users.remove(to_delete);
+		em.remove(to_delete);
+	}
 }

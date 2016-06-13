@@ -42,4 +42,10 @@ public interface NetworkInterface {
 	public void modifyNetwork(long id, String name, String description);
 	
 	public void deleteNetwork(long id);
+	
+	public void addUser(String firstname, String lastname, String email);
+	
+	public void modifyUser(long id, String firstname, String lastname, String email);
+	
+	public void deleteUser(long id);
 }
