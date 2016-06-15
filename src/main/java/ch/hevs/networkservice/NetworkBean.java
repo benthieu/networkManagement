@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
@@ -19,6 +20,7 @@ import ch.hevs.businessobject.OperatingSystem;
 import ch.hevs.businessobject.User;
 
 @Stateful
+//@RolesAllowed(value = { "admin", "visitor" })
 public class NetworkBean implements NetworkInterface {
 	@Resource
 	private SessionContext ctx;
@@ -130,6 +132,26 @@ public class NetworkBean implements NetworkInterface {
 	public void deleteUser(long id) {
 		User to_delete = em.getReference(User.class, id);
 		users.remove(to_delete);
+		em.remove(to_delete);
+	}
+	
+	public void addOs(String name, Brand brand) {
+		OperatingSystem new_os = new OperatingSystem();
+		new_os.setName(name);
+		new_os.setBrand(brand);
+		operatingSystems.add(new_os);
+		em.persist(new_os);
+	}
+	public void modifyOs(long id, String name, Brand brand) {
+		OperatingSystem mod_os = em.getReference(OperatingSystem.class, id);
+		mod_os.setName(name);
+		mod_os.setBrand(brand);
+		em.persist(mod_os);
+	}
+	
+	public void deleteOsById(long id) {
+		OperatingSystem to_delete = em.getReference(OperatingSystem.class, id);
+		operatingSystems.remove(to_delete);
 		em.remove(to_delete);
 	}
 }

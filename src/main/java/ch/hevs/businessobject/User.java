@@ -17,14 +17,6 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	private String firstname;
 	private String lastname;
 	private String email;
@@ -42,6 +34,15 @@ public class User {
 	}
 	
 	// GETTERS AND SETTERS
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public String getFirstname() {
 		return firstname;
 	}

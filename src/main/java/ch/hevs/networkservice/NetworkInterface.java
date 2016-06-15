@@ -15,9 +15,7 @@ public interface NetworkInterface {
 	
 	public List<Device> getDevices();
 	
-	
 	public List<Network> getNetworks();
-
 
 	public List<OperatingSystem> getOperatingSystems();
 
@@ -48,4 +46,10 @@ public interface NetworkInterface {
 	public void modifyUser(long id, String firstname, String lastname, String email);
 	
 	public void deleteUser(long id);
+	
+	public void addOs(String name, Brand brand);
+	
+	public void modifyOs(long id, String name, Brand brand);
+	
+	public void deleteOsById(long id);
 }

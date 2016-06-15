@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.security.RolesAllowed;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -18,6 +19,7 @@ import ch.hevs.networkservice.NetworkInterface;
  * TransferBean.java
  * 
  */
+//@RolesAllowed(value = { "visitor", "admin" })
 public class DeviceBean
 {
     private List<Device> deviceList;

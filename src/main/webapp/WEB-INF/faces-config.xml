@@ -9,6 +9,7 @@
 		<managed-bean-class>ch.hevs.managedbeans.DeviceBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
+	
 	<managed-bean>
 		<managed-bean-name>networkBean</managed-bean-name>
 		<managed-bean-class>ch.hevs.managedbeans.NetworkBean</managed-bean-class>
@@ -18,6 +19,19 @@
 	     <value>#{deviceBean}</value>
 	    </managed-property>
 	</managed-bean>
+	
+		<managed-bean>
+		<managed-bean-name>userBean</managed-bean-name>
+		<managed-bean-class>ch.hevs.managedbeans.UserBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+		<managed-bean>
+		<managed-bean-name>osBean</managed-bean-name>
+		<managed-bean-class>ch.hevs.managedbeans.OsBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
 	<navigation-rule>
 		<display-name>welcomeNetwork.xhtml</display-name>
 		<from-view-id>/welcomeNetwork.xhtml</from-view-id>

@@ -3,6 +3,7 @@ package ch.hevs.managedbeans;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.security.RolesAllowed;
 import javax.faces.bean.ManagedProperty;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -14,6 +15,7 @@ import ch.hevs.networkservice.NetworkInterface;
  * TransferBean.java
  * 
  */
+//@RolesAllowed(value = { "admin" })
 public class NetworkBean
 {
     private List<Network> networkList;
