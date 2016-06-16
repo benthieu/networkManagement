@@ -71,13 +71,14 @@ public class NetworkBean
 		if (operation_state == 1) {
 			networking.modifyNetwork(mod_network_id, this.getNetworkName(), this.getNetworkDescription());
 		}
-		deviceBean.setNetworkList(networkList);
+		deviceBean.refreshLists();
 		// reset form
 		this.abord();
 	}
 	
 	public void deleteNetwork(int id) {
 		networking.deleteNetwork(id);
+		deviceBean.refreshLists();
 	}
 	
 	public void deleteDevice(long id) {

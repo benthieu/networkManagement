@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 
 @Entity
 @Table(name="Network")
@@ -26,7 +29,7 @@ public class Network {
 	/** ASSOCIATIONS **/
 	
 	// association avec Device
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "networks")
+	@ManyToMany(mappedBy = "networks")
 	private List<Device> devices;
 
 	

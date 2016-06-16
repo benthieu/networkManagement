@@ -31,9 +31,11 @@ public class OsBean
     private long mod_os_id;
     private String selectedBrand;
     private List<Brand> brandNames;
-    
-    
-    @PostConstruct
+
+    @ManagedProperty(value="#{deviceBean}")
+    private DeviceBean deviceBean;
+
+	@PostConstruct
     public void initialize() throws NamingException {
     	// use JNDI to inject reference to bank EJB
     	InitialContext ctx = new InitialContext();
@@ -120,12 +122,14 @@ public class OsBean
 			networking.modifyOs(mod_os_id,
 									this.getOsName(), brand);
 		}
+		deviceBean.refreshLists();
 		// reset form
 		this.abord();
 	}
 	
 	public void deleteOs(long id) {
 		networking.deleteOsById(id);
+		deviceBean.refreshLists();
 	}
 
 	// getters and setters
@@ -169,6 +173,14 @@ public class OsBean
 
 	public void setOperation(String operation) {
 		this.operation = operation;
+	}
+    
+    public DeviceBean getDeviceBean() {
+		return deviceBean;
+	}
+
+	public void setDeviceBean(DeviceBean deviceBean) {
+		this.deviceBean = deviceBean;
 	}
 	
 }

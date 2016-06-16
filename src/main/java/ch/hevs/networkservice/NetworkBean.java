@@ -91,8 +91,8 @@ public class NetworkBean implements NetworkInterface {
 	}
 	public void deleteDeviceById(long id) {
 		Device to_delete = em.getReference(Device.class, id);
-		devices.remove(to_delete);
 		em.remove(to_delete);
+		devices.remove(to_delete);
 	}
 
 	public void addNetwork(String name, String description) {
@@ -110,8 +110,11 @@ public class NetworkBean implements NetworkInterface {
 	}
 	public void deleteNetwork(long id) {
 		Network to_delete = em.getReference(Network.class, id);
-		networks.remove(to_delete);
+		for (Device d : this.getDevices()) {
+			d.getNetworks().remove(to_delete);
+		}
 		em.remove(to_delete);
+		networks.remove(to_delete);
 	}
 	public void addUser(String firstname, String lastname, String email) {
 		User new_user = new User();
@@ -131,8 +134,11 @@ public class NetworkBean implements NetworkInterface {
 	
 	public void deleteUser(long id) {
 		User to_delete = em.getReference(User.class, id);
-		users.remove(to_delete);
+		for (Device d : this.getDevices()) {
+			d.getOwners().remove(to_delete);
+		}
 		em.remove(to_delete);
+		users.remove(to_delete);
 	}
 	
 	public void addOs(String name, Brand brand) {
@@ -151,7 +157,7 @@ public class NetworkBean implements NetworkInterface {
 	
 	public void deleteOsById(long id) {
 		OperatingSystem to_delete = em.getReference(OperatingSystem.class, id);
-		operatingSystems.remove(to_delete);
 		em.remove(to_delete);
+		operatingSystems.remove(to_delete);
 	}
 }

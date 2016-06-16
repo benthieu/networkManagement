@@ -49,7 +49,7 @@ public class DeviceBean
     	this.setOperation("Add device");
     	operation_state = 0;
 		this.mod_device_id = -1;
-    	
+
     	// get devices
     	deviceList = networking.getDevices();
     	// get networks
@@ -91,6 +91,17 @@ public class DeviceBean
 		google.setBrand_headquarters("Mountain View, California");
 		brandNames.add(google);
     }
+	
+	public void refreshLists() {
+    	// get devices
+    	deviceList = networking.getDevices();
+    	// get networks
+    	networkList = networking.getNetworks();
+    	// get users
+    	userList = networking.getUsers();
+    	// get os
+    	osList = networking.getOperatingSystems();
+	}
 	
 	// reset form
 	public void abord() {

@@ -24,12 +24,20 @@
 		<managed-bean-name>userBean</managed-bean-name>
 		<managed-bean-class>ch.hevs.managedbeans.UserBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
+	    <managed-property>
+	     <property-name>deviceBean</property-name>
+	     <value>#{deviceBean}</value>
+	    </managed-property>
 	</managed-bean>
 	
 		<managed-bean>
 		<managed-bean-name>osBean</managed-bean-name>
 		<managed-bean-class>ch.hevs.managedbeans.OsBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
+	    <managed-property>
+	     <property-name>deviceBean</property-name>
+	     <value>#{deviceBean}</value>
+	    </managed-property>
 	</managed-bean>
 	
 	<navigation-rule>

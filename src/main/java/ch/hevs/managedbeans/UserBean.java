@@ -18,7 +18,8 @@ import ch.hevs.networkservice.NetworkInterface;
 //@RolesAllowed(value = { "admin", "visitor" })
 public class UserBean
 {
-    private List<User> userList;
+
+	private List<User> userList;
     private NetworkInterface networking;
     private String userFirstname;
     private String userLastname;
@@ -29,7 +30,6 @@ public class UserBean
     
     @ManagedProperty(value="#{deviceBean}")
     private DeviceBean deviceBean;
-    
 
 	@PostConstruct
     public void initialize() throws NamingException {
@@ -74,13 +74,14 @@ public class UserBean
 		if (operation_state == 1) {
 			networking.modifyUser(mod_user_id, this.getUserFirstname(), this.getUserLastname(), this.getUserEmail());
 		}
-		deviceBean.setUserList(userList);
+		deviceBean.refreshLists();
 		// reset form
 		this.abord();
 	}
 	
 	public void deleteUser(int id) {
 		networking.deleteUser(id);
+		deviceBean.refreshLists();
 	}
 
 	public List<User> getUserList() {
@@ -141,6 +142,13 @@ public class UserBean
 	}
 	
 
+    public DeviceBean getDeviceBean() {
+		return deviceBean;
+	}
+
+	public void setDeviceBean(DeviceBean deviceBean) {
+		this.deviceBean = deviceBean;
+	}
 
 	
 }
