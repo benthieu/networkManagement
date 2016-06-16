@@ -29,7 +29,7 @@ public class Network {
 	/** ASSOCIATIONS **/
 	
 	// association avec Device
-	@ManyToMany(mappedBy = "networks")
+	@ManyToMany(mappedBy = "networks", cascade = CascadeType.ALL)
 	private List<Device> devices;
 
 	

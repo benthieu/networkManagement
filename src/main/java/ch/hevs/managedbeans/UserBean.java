@@ -15,7 +15,6 @@ import ch.hevs.networkservice.NetworkInterface;
  * TransferBean.java
  * 
  */
-//@RolesAllowed(value = { "admin", "visitor" })
 public class UserBean
 {
 

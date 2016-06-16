@@ -20,7 +20,6 @@ import ch.hevs.networkservice.NetworkInterface;
  * TransferBean.java
  * 
  */
-//@RolesAllowed(value = { "admin" })
 public class OsBean
 {
     private List<OperatingSystem> osList;

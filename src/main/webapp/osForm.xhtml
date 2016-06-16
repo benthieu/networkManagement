@@ -27,14 +27,14 @@
     				<f:facet name="header">Brand</f:facet>
     				#{o.brand.brand_name}
     			</h:column>
-    			<h:column>
+    			<h:column rendered="#{request.isUserInRole('admin')}">
     				<f:facet name="header">Mod</f:facet>
     				<h:commandLink
 					    action="#{osBean.modifyOs(o.id)}">
 					    Modify
 					</h:commandLink>
     			</h:column>
-    			<h:column>
+    			<h:column rendered="#{request.isUserInRole('admin')}">
     				<f:facet name="header">Del</f:facet>
     				<h:commandLink
 					    action="#{osBean.deleteOs(o.id)}">
@@ -42,6 +42,8 @@
 					</h:commandLink>
     			</h:column>
     		</h:dataTable>
+    	</h:form>
+    	<h:form rendered="#{request.isUserInRole('admin')}">
     		<br/>
     		<h3><h:outputText value="#{osBean.operation}"></h:outputText></h3>
     		<label>Name:</label>

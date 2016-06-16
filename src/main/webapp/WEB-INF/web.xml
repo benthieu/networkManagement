@@ -34,10 +34,37 @@
   <welcome-file-list>
     <welcome-file>welcomeNetwork.xhtml</welcome-file>
   </welcome-file-list>
+  <context-param>
+    <param-name>resteasy.role.based.security</param-name>
+    <param-value>true</param-value>
+</context-param>
   <env-entry>
     <env-entry-name>jsf/ClientSideSecretKey</env-entry-name>
     <env-entry-type>java.lang.String</env-entry-type>
     <env-entry-value>am9kZXRlcHV0b2hhY2tlcg==</env-entry-value>
   </env-entry>
+  
   <display-name>network</display-name>
+  <security-constraint>
+	<web-resource-collection>
+	<web-resource-name>Secure Content</web-resource-name>
+	<url-pattern>/*</url-pattern>
+	</web-resource-collection>
+	<auth-constraint>
+	<role-name>admin</role-name>
+	<role-name>visitor</role-name>
+	</auth-constraint>
+	</security-constraint>
+	<login-config>
+	<auth-method>BASIC</auth-method>
+	<realm-name>Restricted Access!</realm-name>
+	</login-config>
+	<security-role>
+		<description>visitor</description>
+		<role-name>visitor</role-name>
+	</security-role>
+	<security-role>
+		<description>admin</description>
+		<role-name>admin</role-name>
+	</security-role>
 </web-app>

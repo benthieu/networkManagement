@@ -19,7 +19,6 @@ import ch.hevs.networkservice.NetworkInterface;
  * TransferBean.java
  * 
  */
-//@RolesAllowed(value = { "visitor", "admin" })
 public class DeviceBean
 {
     private List<Device> deviceList;

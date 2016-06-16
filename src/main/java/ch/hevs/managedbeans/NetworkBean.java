@@ -15,7 +15,6 @@ import ch.hevs.networkservice.NetworkInterface;
  * TransferBean.java
  * 
  */
-//@RolesAllowed(value = { "admin" })
 public class NetworkBean
 {
     private List<Network> networkList;
