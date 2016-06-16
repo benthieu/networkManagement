@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
+    <ui:define name="content">
+    	<h:form>
+        	<h:dataTable value="#{osBean.osList}" var="o"
+    			styleClass="order-table"
+    			headerClass="order-table-header"
+    			rowClasses="order-table-odd-row,order-table-even-row"
+    		>
+    			<h:column>
+    				<!-- column header -->
+    				<f:facet name="header">ID</f:facet>
+    				<!-- row record -->
+    				#{o.id}
+    			</h:column>
+    			<h:column>
+    				<f:facet name="header">Name</f:facet>
+    				#{o.name}
+    			</h:column>
+    			<h:column>
+    				<f:facet name="header">Brand</f:facet>
+    				#{o.brand.brand_name}
+    			</h:column>
+    			<h:column>
+    				<f:facet name="header">Mod</f:facet>
+    				<h:commandLink
+					    action="#{osBean.modifyOs(o.id)}">
+					    Modify
+					</h:commandLink>
+    			</h:column>
+    			<h:column>
+    				<f:facet name="header">Del</f:facet>
+    				<h:commandLink
+					    action="#{osBean.deleteOs(o.id)}">
+					    Delete
+					</h:commandLink>
+    			</h:column>
+    		</h:dataTable>
+    		<br/>
+    		<h3><h:outputText value="#{osBean.operation}"></h:outputText></h3>
+    		<label>Name:</label>
+            <h:inputText value="#{osBean.osName}" style="width: 120px;"></h:inputText>
+	        <br/>
+	           <label>Brand:</label>
+	        <h:selectOneMenu value="#{osBean.selectedBrand}">
+        	<f:selectItems value="#{osBean.brandNames}" var="brand" itemValue="#{brand.brand_name}" itemLabel="#{brand.brand_name}"/>
+        	</h:selectOneMenu>
+	        <br/>
+     		<h:commandButton value="Save" action="#{osBean.handleOs}"></h:commandButton>
+     		<h:commandButton value="Abord" action="#{osBean.abord}"></h:commandButton>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>
